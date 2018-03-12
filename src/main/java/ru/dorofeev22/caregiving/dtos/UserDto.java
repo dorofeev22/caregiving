@@ -2,6 +2,9 @@ package ru.dorofeev22.caregiving.dtos;
 
 public class UserDto {
 
+    public UserDto() {
+    }
+
     public UserDto(long id, String name, String login) {
         this.id = id;
         this.name = name;

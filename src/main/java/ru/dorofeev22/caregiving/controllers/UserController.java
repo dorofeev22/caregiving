@@ -37,13 +37,30 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, HttpServletResponse response) {
-        Optional o = userRepository.findById(id);
-        if (o.isPresent()) {
-            userRepository.delete((User) o.get());
+        User u = getById(id);
+        if (u != null) {
+            userRepository.delete(u);
             response.setStatus(HttpStatus.OK.value());
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
         }
+    }
+
+    @GetMapping("/{id}")
+    public UserDto user(@PathVariable Long id, HttpServletResponse response) {
+        User u = getById(id);
+        if (u != null) {
+            response.setStatus(HttpStatus.OK.value());
+            return new UserDto(u.getId(), u.getName(), u.getLogin());
+        } else {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return null;
+        }
+    }
+
+    private User getById(Long id) {
+        Optional o = userRepository.findById(id);
+        return (User) o.orElse(null);
     }
 
 }
