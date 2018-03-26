@@ -1,16 +1,15 @@
 package ru.dorofeev22.caregiving.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.dorofeev22.caregiving.dtos.UserDto;
 import ru.dorofeev22.caregiving.entities.User;
 import ru.dorofeev22.caregiving.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -24,10 +23,9 @@ public class UserService {
     }
 
     @Transactional
-    public List<UserDto> find() {
-        Iterable<User> users = userRepository.findAll();
-        return StreamSupport.stream(users.spliterator(), false)
-                .map(u -> fromDto(u)).collect(Collectors.toList());
+    public Page<UserDto> find(int page, int size) {
+        Page<User> usersPage = userRepository.findAll(PageRequest.of(page, size));
+        return usersPage.map(this::fromDto);
     }
 
     @Transactional

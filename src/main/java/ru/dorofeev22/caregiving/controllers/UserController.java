@@ -1,6 +1,7 @@
 package ru.dorofeev22.caregiving.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,6 @@ import ru.dorofeev22.caregiving.dtos.UserDto;
 import ru.dorofeev22.caregiving.services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -24,8 +24,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDto> users() {
-        return userService.find();
+    public Page<UserDto> users(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return userService.find(page, size);
     }
 
     @DeleteMapping("/{id}")
