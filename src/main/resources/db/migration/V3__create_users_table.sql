@@ -1,4 +1,3 @@
-\connect caregiving;
 CREATE TABLE caregiving.users
 (
   id bigserial NOT NULL,
