@@ -1,66 +1,43 @@
 package ru.dorofeev22.caregiving.controllers;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.dorofeev22.caregiving.dtos.UserDto;
-import ru.dorofeev22.caregiving.entities.User;
-import ru.dorofeev22.caregiving.repository.UserRepository;
+import ru.dorofeev22.caregiving.services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody UserDto ud) {
-        userRepository.save(new User(ud.getName(), ud.getLogin()));
+        userService.save(ud);
     }
 
     @GetMapping
     public List<UserDto> users() {
-        Iterable<User> users = userRepository.findAll();
-        return StreamSupport.stream(users.spliterator(), false)
-                .map(u -> new UserDto(u.getId(), u.getName(), u.getLogin())).collect(Collectors.toList());
+        return userService.find();
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, HttpServletResponse response) {
-        User u = getById(id);
-        if (u != null) {
-            userRepository.delete(u);
-            response.setStatus(HttpStatus.OK.value());
-        } else {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-        }
+        response.setStatus((userService.delete(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND).value());
     }
 
     @GetMapping("/{id}")
     public UserDto user(@PathVariable Long id, HttpServletResponse response) {
-        User u = getById(id);
-        if (u != null) {
-            response.setStatus(HttpStatus.OK.value());
-            return new UserDto(u.getId(), u.getName(), u.getLogin());
-        } else {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            return null;
-        }
-    }
-
-    private User getById(Long id) {
-        Optional o = userRepository.findById(id);
-        return (User) o.orElse(null);
+        UserDto u = userService.getById(id);
+        response.setStatus((u != null ? HttpStatus.OK : HttpStatus.NOT_FOUND).value());
+        return u;
     }
 
 }
