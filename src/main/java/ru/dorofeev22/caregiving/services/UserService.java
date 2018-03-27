@@ -18,21 +18,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MapperService mapperService;
+
     @Transactional
     public void save(UserDto ud) {
-        userRepository.save(new User(ud.getName(), ud.getLogin()));
+        userRepository.save(mapperService.fromDto(ud, User.class));
     }
 
     @Transactional
     public Page<UserDto> find(int page, int size) {
         Page<User> usersPage = userRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "name"));
-        return usersPage.map(this::fromDto);
+        return usersPage.map(this::toDto);
     }
 
     @Transactional
     public UserDto getById(Long id) {
         Optional<User> o = userRepository.findById(id);
-        return fromDto(o.orElse(null));
+        return toDto(o.orElse(null));
     }
 
     @Transactional
@@ -44,8 +47,8 @@ public class UserService {
         return o.isPresent();
     }
 
-    private UserDto fromDto(User u) {
-        return u != null ? new UserDto(u.getId(), u.getName(), u.getLogin()) : null;
+    private UserDto toDto(User u) {
+        return mapperService.toDto(u, UserDto.class);
     }
 
 }
