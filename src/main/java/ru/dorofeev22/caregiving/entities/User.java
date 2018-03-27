@@ -14,8 +14,9 @@ public class User {
  
 	protected User() {
 	}
- 
-	public User(String name, String login) {
+
+	public User(Long id, String name, String login) {
+		this.id = id;
 		this.name = name;
 		this.login = login;
 	}
