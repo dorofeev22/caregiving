@@ -3,6 +3,7 @@ package ru.dorofeev22.caregiving.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.dorofeev22.caregiving.dtos.UserDto;
@@ -24,7 +25,7 @@ public class UserService {
 
     @Transactional
     public Page<UserDto> find(int page, int size) {
-        Page<User> usersPage = userRepository.findAll(PageRequest.of(page, size));
+        Page<User> usersPage = userRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "name"));
         return usersPage.map(this::fromDto);
     }
 
