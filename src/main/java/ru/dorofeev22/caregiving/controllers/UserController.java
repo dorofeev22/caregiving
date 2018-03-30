@@ -9,6 +9,7 @@ import ru.dorofeev22.caregiving.dtos.UserDto;
 import ru.dorofeev22.caregiving.services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -19,7 +20,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody UserDto ud) {
+    public void save(@Valid @RequestBody UserDto ud) {
         userService.save(ud);
     }
 
