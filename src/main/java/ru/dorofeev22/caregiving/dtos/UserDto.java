@@ -16,10 +16,10 @@ public class UserDto {
 
     private long id;
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     private String name;
     @NotBlank
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     private String login;
 
     public long getId() {
