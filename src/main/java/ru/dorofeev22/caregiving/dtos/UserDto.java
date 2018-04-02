@@ -1,6 +1,6 @@
 package ru.dorofeev22.caregiving.dtos;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserDto {
@@ -15,10 +15,10 @@ public class UserDto {
     }
 
     private long id;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 100)
     private String name;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 50)
     private String login;
 
