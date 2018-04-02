@@ -1,5 +1,6 @@
 package ru.dorofeev22.caregiving.services;
 
+import org.assertj.core.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,9 +28,13 @@ public class UserService {
     }
 
     @Transactional
-    public Page<UserDto> find(int page, int size) {
-        Page<User> usersPage = userRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "name"));
-        return usersPage.map(this::toDto);
+    public Page<UserDto> find(int page, int size, String nameLike) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "name");
+        if (Strings.isNullOrEmpty(nameLike)) {
+            return userRepository.findAll(pageRequest).map(this::toDto);
+        } else {
+            return userRepository.findByNameContaining(nameLike, pageRequest).map(this::toDto);
+        }
     }
 
     @Transactional

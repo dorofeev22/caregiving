@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @GetMapping
-    public Page<UserDto> users(@RequestParam("page") int page, @RequestParam("size") int size) {
-        return userService.find(page, size);
+    public Page<UserDto> users(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("name") String name) {
+        return userService.find(page, size, name);
     }
 
     @DeleteMapping("/{id}")
