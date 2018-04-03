@@ -25,8 +25,12 @@ public class UserController {
     }
 
     @GetMapping
-    public Page<UserDto> users(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("name") String name) {
-        return userService.find(page, size, name);
+    public Page<UserDto> users(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name,
+            @RequestParam(value = "login", required = false, defaultValue = "") String login) {
+        return userService.find(page, size, name, login);
     }
 
     @DeleteMapping("/{id}")

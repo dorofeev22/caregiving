@@ -7,9 +7,6 @@ import ru.dorofeev22.caregiving.entities.User;
    
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
-    @Override
-    Page<User> findAll(Pageable pageable);
-
-    Page<User> findByNameContaining(String name, Pageable pageable);
+    Page<User> findByNameContainingAndLoginContaining(String name, String login, Pageable pageable);
 
 }
