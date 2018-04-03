@@ -11,14 +11,24 @@ public class User {
 	private long id;
 	private String name;
 	private String login;
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Type type;
  
-	protected User() {
+	public enum Type {
+		admin, user
 	}
 
-	public User(Long id, String name, String login) {
+	public User() {
+	}
+
+	public User(Long id, String name, String login, String password, Type type) {
 		this.id = id;
 		this.name = name;
 		this.login = login;
+		this.password = password;
+		this.type = type;
 	}
 
 	public long getId() {
@@ -43,6 +53,22 @@ public class User {
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 }
 

@@ -1,5 +1,7 @@
 package ru.dorofeev22.caregiving.dtos;
 
+import ru.dorofeev22.caregiving.entities.User;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -8,25 +10,30 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(long id, String name, String login) {
+    public UserDto(Long id, String name, String login, String password, User.Type type) {
         this.id = id;
         this.name = name;
         this.login = login;
+        this.password = password;
+        this.type = type;
     }
 
-    private long id;
+    private Long id;
     @NotBlank
     @Size(max = 100)
     private String name;
     @NotBlank
     @Size(max = 50)
     private String login;
+    private String password;
+    // TODO validate
+    private User.Type type;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,5 +51,21 @@ public class UserDto {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User.Type getType() {
+        return type;
+    }
+
+    public void setType(User.Type type) {
+        this.type = type;
     }
 }

@@ -1,9 +1,12 @@
 package ru.dorofeev22.caregiving.controllers;
 
+import org.assertj.core.util.Strings;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.dorofeev22.caregiving.dtos.UserDto;
 import ru.dorofeev22.caregiving.services.UserService;
@@ -19,9 +22,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void save(@Valid @RequestBody UserDto ud) {
+    public ResponseEntity save(@Valid @RequestBody UserDto ud) throws JSONException {
+        if (ud.getId() == null && Strings.isNullOrEmpty(ud.getPassword())) {
+            return new ResponseEntity<>("Password must be exists", HttpStatus.BAD_REQUEST);
+        }
         userService.save(ud);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping

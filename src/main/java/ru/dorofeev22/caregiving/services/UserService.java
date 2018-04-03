@@ -23,7 +23,7 @@ public class UserService {
 
     @Transactional
     public void save(UserDto ud) {
-        userRepository.save(mapperService.fromDto(ud, User.class));
+        userRepository.save(mapperService.fromUserDto(ud));
     }
 
     @Transactional
@@ -48,7 +48,7 @@ public class UserService {
     }
 
     private UserDto toDto(User u) {
-        return mapperService.toDto(u, UserDto.class);
+        return mapperService.toUserDto(u);
     }
 
 }
