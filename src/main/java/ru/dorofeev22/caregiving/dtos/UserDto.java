@@ -3,9 +3,16 @@ package ru.dorofeev22.caregiving.dtos;
 import ru.dorofeev22.caregiving.entities.User;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserDto {
+
+    public interface Existing {
+    }
+
+    public interface New {
+    }
 
     public UserDto() {
     }
@@ -18,15 +25,18 @@ public class UserDto {
         this.type = type;
     }
 
+
+    @NotNull(groups = Existing.class)
     private Long id;
-    @NotBlank
+    @NotBlank(groups = {New.class, Existing.class})
     @Size(max = 100)
     private String name;
-    @NotBlank
+    @NotBlank(groups = {New.class, Existing.class})
     @Size(max = 50)
     private String login;
+    @NotBlank(groups = New.class)
     private String password;
-    // TODO validate
+    @NotNull(groups = {New.class, Existing.class})
     private User.Type type;
 
     public Long getId() {

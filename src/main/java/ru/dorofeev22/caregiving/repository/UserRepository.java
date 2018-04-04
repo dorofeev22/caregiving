@@ -4,9 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import ru.dorofeev22.caregiving.entities.User;
-   
+
+import java.util.List;
+
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
-    Page<User> findByNameContainingAndLoginContaining(String name, String login, Pageable pageable);
+    Page<User> findByNameContainingAndLoginContainingAndTypeIn(String name, String login, List<User.Type> types, Pageable pageable);
 
 }

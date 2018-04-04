@@ -15,7 +15,7 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	private Type type;
- 
+
 	public enum Type {
 		admin, user
 	}
