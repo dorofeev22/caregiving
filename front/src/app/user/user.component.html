@@ -1,0 +1,88 @@
+<h3>User</h3>
+
+<form *ngIf="user; else loading" [formGroup]="userForm" (ngSubmit)="save()">
+
+  <p-panel header="User info">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Name :
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText type="text" formControlName="name" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['name'].valid && userForm.controls['name'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="userForm.controls['name'].errors['required']">Name is required</span>
+            <span *ngIf="userForm.controls['name'].errors['maxlength']">Mustn't be longer than {{nameMaxLength}} character</span>
+            <span *ngIf="userForm.controls['name'].errors['pattern']">Must be not blank</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Login :
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText type="text" formControlName="login" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['login'].valid && userForm.controls['login'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="userForm.controls['login'].errors['required']">Name is required</span>
+            <span *ngIf="userForm.controls['login'].errors['maxlength']">Mustn't be longer than {{loginMaxLength}} character</span>
+            <span *ngIf="userForm.controls['login'].errors['pattern']">Must be not blank</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Type :
+        </div>
+        <div class="ui-grid-col-6">
+          <p-dropdown [options]="userTypes" formControlName="type" placeholder="Select a type" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['type'].valid && userForm.controls['type'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="userForm.controls['type'].errors['required']">Type is required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div *ngIf="!user.id" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Password :
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText type="text" formControlName="password" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="userForm.controls['password'].errors['required']">Password is required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+
+
+  <button pButton type="submit" label="Save" [disabled]="!userForm.valid"></button>
+</form>
+<p>
+  <a pButton [routerLink]="['/users']" label="Cancel"></a>
+</p>
+<ng-template #loading>
+  Loading User...
+</ng-template>

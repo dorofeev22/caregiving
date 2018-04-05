@@ -8,3 +8,6 @@
 /*.iml
 /*.nb-gradle-properties
 /back/nbproject/private/
+
+/front/node_modules
+/front/.idea/
