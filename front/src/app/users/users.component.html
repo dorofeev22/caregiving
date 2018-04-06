@@ -19,8 +19,23 @@
   </ng-template>
   <ng-template pTemplate="body" let-user let-columns="columns">
     <tr>
-      <td *ngFor="let col of columns">
-        {{user[col.field]}}
+      <td *ngFor="let col of columns" pEditableColumn [ngSwitch]="col.field">
+        <p-cellEditor *ngSwitchCase="'type'">
+          <ng-template pTemplate="input">
+            <p-dropdown [options]="userTypes" [(ngModel)]="user.type" required (ngModelChange)="changed(user)"></p-dropdown>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{user.type}}
+          </ng-template>
+        </p-cellEditor>
+        <p-cellEditor *ngSwitchDefault>
+          <ng-template pTemplate="input">
+            <input type="text" [(ngModel)]="user[col.field]" required (ngModelChange)="changed(user)">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{user[col.field]}}
+          </ng-template>
+        </p-cellEditor>
       </td>
       <td>
         <a pButton [routerLink]="['/user', user.id]" label="Edit"></a>

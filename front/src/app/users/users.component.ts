@@ -4,6 +4,9 @@ import {CommonService} from '../common.service';
 import {User} from '../domain/user';
 import {LazyLoadEvent} from 'primeng/primeng';
 import {SelectItem} from 'primeng/api';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'app-users',
@@ -18,9 +21,13 @@ export class UsersComponent implements OnInit {
   totalRecords: number;
   loading: boolean;
   rows: number;
+  modelChanged: Subject<User> = new Subject<User>();
 
   constructor(private commonService: CommonService, private router: Router) {
     this.userTypes = this.commonService.getUsersType();
+    this.modelChanged
+      .debounceTime(300) // wait 300ms after the last event before emitting last event
+      .subscribe(user => this.save(user));
   }
 
   ngOnInit() {
@@ -65,5 +72,14 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  changed(user: User) {
+    this.modelChanged.next(user);
+  }
+
+  save(user: User) {
+    this.commonService.save('/user', user).subscribe(res => {
+      // TODO accept response
+    });
+  }
 
 }
