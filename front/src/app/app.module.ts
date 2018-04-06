@@ -13,6 +13,7 @@ import {UsersComponent} from './users/users.component';
 import {CommonService} from './common.service';
 import {UserComponent} from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 const appRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
     InputTextModule,
     DropdownModule,
     FormsModule,
-    PanelModule
+    PanelModule,
+    OverlayPanelModule
   ],
   providers: [CommonService],
   bootstrap: [AppComponent]

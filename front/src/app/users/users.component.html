@@ -8,12 +8,14 @@
         {{col.header}}
       </th>
       <th></th>
+      <th></th>
     </tr>
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
         <p-dropdown *ngSwitchCase="'type'" [options]="userTypes" [style]="{'width':'100%'}" placeholder="Select a type" [showClear]="true" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
         <input *ngSwitchDefault pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
       </th>
+      <th></th>
       <th></th>
     </tr>
   </ng-template>
@@ -22,7 +24,7 @@
       <td *ngFor="let col of columns" pEditableColumn [ngSwitch]="col.field">
         <p-cellEditor *ngSwitchCase="'type'">
           <ng-template pTemplate="input">
-            <p-dropdown [options]="userTypes" [(ngModel)]="user.type" required (ngModelChange)="changed(user)"></p-dropdown>
+            <p-dropdown [options]="userTypes" [(ngModel)]="user.type" filter="true" (ngModelChange)="changed(user)"></p-dropdown>
           </ng-template>
           <ng-template pTemplate="output">
             {{user.type}}
@@ -38,12 +40,37 @@
         </p-cellEditor>
       </td>
       <td>
+          <button type="text" pButton label="Basic" (click)="op.toggle($event)"></button>
+      </td>
+      <td>
         <a pButton [routerLink]="['/user', user.id]" label="Edit"></a>
         <button pButton type="button" (click)="delete(user.id)" label="Delete"></button>
       </td>
     </tr>
   </ng-template>
 </p-table>
+
+<p-overlayPanel #op [showCloseIcon]="true" [dismissable]="true">
+  <p-table  [value]="users" [style]="{'width':'500px'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>name</th>
+        <th>login</th>
+        <th>Chose</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.login}}</td>
+        <td>
+          <!-- TODO set some user filed with rowId -->
+          <button pButton type="button" (click)="changed(user)" label="Choose"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table >
+</p-overlayPanel>
 
 <div>
   <a pButton [routerLink]="['/user', '']" label="Create"></a>
