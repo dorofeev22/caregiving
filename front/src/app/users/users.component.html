@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
-        <p-dropdown *ngSwitchCase="'type'" [options]="userTypes" [style]="{'width':'100%'}" placeholder="Select a type" [showClear]="true" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+        <p-dropdown *ngSwitchCase="'type'" [options]="userTypes" placeholder="Select a type" [showClear]="true" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
         <input *ngSwitchDefault pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
       </th>
       <th></th>
@@ -51,18 +51,21 @@
 </p-table>
 
 <p-overlayPanel #op [showCloseIcon]="true" [dismissable]="true">
-  <p-table  [value]="users" [style]="{'width':'500px'}">
-    <ng-template pTemplate="header">
+  <p-table [columns]="cols" [value]="users" [style]="{'width':'500px'}">
+    <ng-template pTemplate="header" let-columns>
       <tr>
-        <th>name</th>
-        <th>login</th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
         <th>Chose</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-user>
+    <ng-template pTemplate="body" let-user let-columns="columns">
       <tr>
-        <td>{{user.name}}</td>
-        <td>{{user.login}}</td>
+        <td *ngFor="let col of columns">
+          {{user[col.field]}}
+        </td>
         <td>
           <!-- TODO set some user filed with rowId -->
           <button pButton type="button" (click)="changed(user)" label="Choose"></button>
@@ -71,6 +74,7 @@
     </ng-template>
   </p-table >
 </p-overlayPanel>
+
 
 <div>
   <a pButton [routerLink]="['/user', '']" label="Create"></a>

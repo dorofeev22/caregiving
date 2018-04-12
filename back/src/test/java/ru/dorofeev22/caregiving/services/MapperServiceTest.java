@@ -38,6 +38,8 @@ public class MapperServiceTest {
         Assert.assertEquals(u.getName(), ud.getName());
         Assert.assertEquals(u.getLogin(), ud.getLogin());
         Assert.assertEquals(u.getType(), ud.getType());
+        Assert.assertEquals(u.getUserRole().getId(), ud.getUserRoleId());
+        Assert.assertEquals(u.getUserRole().getName(), ud.getUserRoleName());
     }
 
 }

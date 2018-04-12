@@ -4,14 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(schema = "caregiving", name = "users")
-public class User {
+public class User extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private String name;
 	private String login;
 	private String password;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_role")
+	private UserRole userRole;
 
 	@Enumerated(EnumType.STRING)
 	private Type type;
@@ -23,20 +24,13 @@ public class User {
 	public User() {
 	}
 
-	public User(Long id, String name, String login, String password, Type type) {
-		this.id = id;
+	public User(Long id, String name, String login, String password, UserRole userRole, Type type) {
+		this.setId(id);
 		this.name = name;
 		this.login = login;
 		this.password = password;
+		this.userRole = userRole;
 		this.type = type;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -69,6 +63,14 @@ public class User {
 
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 }
 

@@ -19,10 +19,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private MapperService mapperService;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
