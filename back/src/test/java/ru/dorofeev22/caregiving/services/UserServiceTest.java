@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.dorofeev22.caregiving.dtos.UserDto;
+import ru.dorofeev22.caregiving.dtos.UserRoleDto;
 import ru.dorofeev22.caregiving.entities.User;
 import ru.dorofeev22.caregiving.repository.UserRepository;
 
@@ -32,34 +33,39 @@ public class UserServiceTest {
         public MapperService mapperService() {
             return new MapperService();
         }
+
+        @Bean
+        public UserRoleService userRoleService() {
+            return new UserRoleService();
+        }
     }
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     private UserDto newUserDto;
+    private UserRoleDto userRoleDto;
     private User userInDatabase;
     private UserDto editedUserDto;
 
     @Before
     public void setUp() {
-        newUserDto = TestUtils.createUserDto(null);
-        userInDatabase = TestUtils.createUser(null);
+        userRoleDto = TestUtils.createUserRoleDto(1L);
+        newUserDto = TestUtils.createUserDto(null, userRoleDto);
+        userInDatabase = TestUtils.createUser(null, TestUtils.createUserRole(null));
         userInDatabase.setPassword(passwordEncoder.encode(userInDatabase.getPassword()));
         userInDatabase = userRepository.save(userInDatabase);
-        editedUserDto = TestUtils.createUserDto(userInDatabase.getId());
+        editedUserDto = TestUtils.createUserDto(userInDatabase.getId(), userRoleDto);
     }
 
 
     @Test
     public void toDto() {
-        UserDto ud = userService.toDto(TestUtils.createUser(1l));
+        UserDto ud = userService.toDto(TestUtils.createUser(1l, TestUtils.createUserRole(null)));
         Assert.assertNull("User DTO password must be null: ", ud.getPassword());
     }
 
@@ -70,6 +76,7 @@ public class UserServiceTest {
         User u = userService.fromDto(newUserDto);
         Assert.assertNotNull("Password must exists: ", u.getPassword());
         Assert.assertNotEquals("Unencrypted password: ", password, u.getPassword());
+        Assert.assertEquals("Another role id", u.getUserRole().getId(), userRoleDto.getId());
 
         u = userService.fromDto(editedUserDto);
         Assert.assertEquals("Password was changed: ", userInDatabase.getPassword(), u.getPassword());

@@ -17,14 +17,13 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String name, String login, String password, User.Type type, Long userRoleId, String userRoleName) {
+    public UserDto(Long id, String name, String login, String password, User.Type type, UserRoleDto roleDto) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
         this.type = type;
-        this.userRoleId = userRoleId;
-        this.userRoleName = userRoleName;
+        this.role = roleDto;
     }
 
 
@@ -41,8 +40,16 @@ public class UserDto {
     @NotNull(groups = {New.class, Existing.class})
     private User.Type type;
     @NotNull(groups = {New.class, Existing.class})
-    private Long userRoleId; // that's how to compose the field's name: Entity.field + SubEntity.field (for successful mapping)
-    private String userRoleName;
+    // TODO validate roleId
+    private UserRoleDto role;
+
+    public UserRoleDto getRole() {
+        return role;
+    }
+
+    public void setRole(UserRoleDto role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -84,19 +91,4 @@ public class UserDto {
         this.type = type;
     }
 
-    public Long getUserRoleId() {
-        return userRoleId;
-    }
-
-    public void setUserRoleId(Long userRoleId) {
-        this.userRoleId = userRoleId;
-    }
-
-    public String getUserRoleName() {
-        return userRoleName;
-    }
-
-    public void setUserRoleName(String userRoleName) {
-        this.userRoleName = userRoleName;
-    }
 }

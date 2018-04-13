@@ -21,14 +21,14 @@ public class MapperServiceTest {
 
     @Test
     public void fromDtoTest() {
-        UserDto ud = TestUtils.createUserDto(1l);
+        UserDto ud = TestUtils.createUserDto(1l, null);
         User u = mapperService.fromDto(ud, User.class);
         compare(u, ud);
     }
 
     @Test
     public void toDtoTest() {
-        User u = TestUtils.createUser(1L);
+        User u = TestUtils.createUser(1L, null);
         UserDto ud = mapperService.toDto(u, UserDto.class);
         compare(u, ud);
     }
@@ -38,8 +38,6 @@ public class MapperServiceTest {
         Assert.assertEquals(u.getName(), ud.getName());
         Assert.assertEquals(u.getLogin(), ud.getLogin());
         Assert.assertEquals(u.getType(), ud.getType());
-        Assert.assertEquals(u.getUserRole().getId(), ud.getUserRoleId());
-        Assert.assertEquals(u.getUserRole().getName(), ud.getUserRoleName());
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.dorofeev22.caregiving.dtos.UserDto;
+import ru.dorofeev22.caregiving.dtos.UserRoleDto;
 import ru.dorofeev22.caregiving.entities.User;
 import ru.dorofeev22.caregiving.repository.UserRepository;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService extends BaseService {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,6 +24,8 @@ public class UserService {
     private MapperService mapperService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRoleService roleService;
 
     @Transactional
     public void save(UserDto ud) {
@@ -37,12 +40,7 @@ public class UserService {
 
     @Transactional
     public UserDto getById(Long id) {
-        return toDto(findById(id));
-    }
-
-    private User findById(Long id) {
-        Optional<User> o = userRepository.findById(id);
-        return o.orElse(null);
+        return toDto(findById(userRepository, id));
     }
 
     @Transactional
@@ -62,11 +60,12 @@ public class UserService {
     public User fromDto(UserDto ud) {
         User u = mapperService.fromDto(ud, User.class);
         if (ud.getId() != null) {
-            User ou = findById(ud.getId());
+            User ou = findById(userRepository, ud.getId());
             u.setPassword(ou.getPassword());
         } else {
             u.setPassword(passwordEncoder.encode(ud.getPassword()));
         }
+        u.setUserRole(roleService.findById(ud.getRole().getId()));
         return u;
     }
 
@@ -78,6 +77,7 @@ public class UserService {
     public UserDto toDto(User u) {
         UserDto ud = mapperService.toDto(u, UserDto.class);
         ud.setPassword(null);
+        ud.setRole(mapperService.toDto(u.getUserRole(), UserRoleDto.class));
         return ud;
     }
 
