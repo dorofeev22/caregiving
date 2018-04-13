@@ -37,7 +37,8 @@ export class UsersComponent implements OnInit {
     this.cols = [
       { field: 'name', header: 'User name' },
       { field: 'login', header: 'Login' },
-      { field: 'type', header: 'Type' }
+      { field: 'type', header: 'Type' },
+      { field: 'role', header: 'Role' }
     ];
   }
 

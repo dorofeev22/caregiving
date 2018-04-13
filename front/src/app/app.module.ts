@@ -14,6 +14,7 @@ import {CommonService} from './common.service';
 import {UserComponent} from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {UserRolesComponent} from './user-roles/user-roles.component';
 
 const appRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     UsersComponent,
-    UserComponent
+    UserComponent,
+    UserRolesComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing: true}),

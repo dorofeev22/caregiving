@@ -8,7 +8,6 @@
         {{col.header}}
       </th>
       <th></th>
-      <th></th>
     </tr>
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -16,13 +15,32 @@
         <input *ngSwitchDefault pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
       </th>
       <th></th>
-      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-user let-columns="columns">
     <tr>
-      <td *ngFor="let col of columns" pEditableColumn [ngSwitch]="col.field">
-        <p-cellEditor *ngSwitchCase="'type'">
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input type="text" [(ngModel)]="user.name" required (ngModelChange)="changed(user)">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{user.name}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input type="text" [(ngModel)]="user.login" required (ngModelChange)="changed(user)">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{user.login}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
           <ng-template pTemplate="input">
             <p-dropdown [options]="userTypes" [(ngModel)]="user.type" filter="true" (ngModelChange)="changed(user)"></p-dropdown>
           </ng-template>
@@ -30,17 +48,21 @@
             {{user.type}}
           </ng-template>
         </p-cellEditor>
-        <p-cellEditor *ngSwitchDefault>
-          <ng-template pTemplate="input">
-            <input type="text" [(ngModel)]="user[col.field]" required (ngModelChange)="changed(user)">
-          </ng-template>
-          <ng-template pTemplate="output">
-            {{user[col.field]}}
-          </ng-template>
-        </p-cellEditor>
       </td>
+      <!--      <td pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <app-user-roles [(userRole)]="user.role" (userRoleChange)="changed(user)"></app-user-roles>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{user.role.name}}
+                </ng-template>
+              </p-cellEditor>
+            </td> -->
       <td>
-          <button type="text" pButton label="Basic" (click)="op.toggle($event)"></button>
+        <span>{{user.role.id}}</span>
+        <span>{{user.role.name}}</span>
+            <app-user-roles [(userRole)]="user.role" (userRoleChange)="changed(user)"></app-user-roles>
       </td>
       <td>
         <a pButton [routerLink]="['/user', user.id]" label="Edit"></a>
@@ -49,32 +71,6 @@
     </tr>
   </ng-template>
 </p-table>
-
-<p-overlayPanel #op [showCloseIcon]="true" [dismissable]="true">
-  <p-table [columns]="cols" [value]="users" [style]="{'width':'500px'}">
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-          {{col.header}}
-          <p-sortIcon [field]="col.field"></p-sortIcon>
-        </th>
-        <th>Chose</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-user let-columns="columns">
-      <tr>
-        <td *ngFor="let col of columns">
-          {{user[col.field]}}
-        </td>
-        <td>
-          <!-- TODO set some user filed with rowId -->
-          <button pButton type="button" (click)="changed(user)" label="Choose"></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table >
-</p-overlayPanel>
-
 
 <div>
   <a pButton [routerLink]="['/user', '']" label="Create"></a>
