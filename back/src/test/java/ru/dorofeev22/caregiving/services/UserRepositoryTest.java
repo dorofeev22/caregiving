@@ -45,7 +45,7 @@ public class UserRepositoryTest {
         assertThat(uFound.getName()).isEqualTo((uSaved.getName()));
         assertThat(uFound.getPassword()).isEqualTo((uSaved.getPassword()));
         assertThat(uFound.getType()).isEqualTo((uSaved.getType()));
-        assertThat(uFound.getUserRole().getId()).isEqualTo(roleSaved.getId());
+        assertThat(uFound.getRole().getId()).isEqualTo(roleSaved.getId());
         assertThat(User.class.getDeclaredFields().length).isEqualTo(5);
     }
 

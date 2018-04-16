@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
-    Page<User> findByNameContainingAndLoginContainingAndTypeIn(String name, String login, List<User.Type> types, Pageable pageable);
+    Page<User> findByNameContainingAndLoginContainingAndTypeInAndRoleNameContaining(
+            String name, String login, List<User.Type> types, String roleName, Pageable pageable);
 
 }

@@ -33,9 +33,9 @@ public class UserService extends BaseService {
     }
 
     @Transactional
-    public Page<UserDto> find(int page, int size, String name, String login, List<User.Type> types) {
-        return userRepository.findByNameContainingAndLoginContainingAndTypeIn(
-                name, login, types, PageRequest.of(page, size, Sort.Direction.ASC, "name")).map(this::toDto);
+    public Page<UserDto> find(int page, int size, String name, String login, List<User.Type> types, String roleName) {
+        return userRepository.findByNameContainingAndLoginContainingAndTypeInAndRoleNameContaining(
+                name, login, types, roleName, PageRequest.of(page, size, Sort.Direction.ASC, "name")).map(this::toDto);
     }
 
     @Transactional
@@ -65,7 +65,7 @@ public class UserService extends BaseService {
         } else {
             u.setPassword(passwordEncoder.encode(ud.getPassword()));
         }
-        u.setUserRole(roleService.findById(ud.getRole().getId()));
+        u.setRole(roleService.findById(ud.getRole().getId()));
         return u;
     }
 
@@ -77,7 +77,7 @@ public class UserService extends BaseService {
     public UserDto toDto(User u) {
         UserDto ud = mapperService.toDto(u, UserDto.class);
         ud.setPassword(null);
-        ud.setRole(mapperService.toDto(u.getUserRole(), UserRoleDto.class));
+        ud.setRole(mapperService.toDto(u.getRole(), UserRoleDto.class));
         return ud;
     }
 

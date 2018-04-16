@@ -76,7 +76,7 @@ public class UserServiceTest {
         User u = userService.fromDto(newUserDto);
         Assert.assertNotNull("Password must exists: ", u.getPassword());
         Assert.assertNotEquals("Unencrypted password: ", password, u.getPassword());
-        Assert.assertEquals("Another role id", u.getUserRole().getId(), userRoleDto.getId());
+        Assert.assertEquals("Another role id", u.getRole().getId(), userRoleDto.getId());
 
         u = userService.fromDto(editedUserDto);
         Assert.assertEquals("Password was changed: ", userInDatabase.getPassword(), u.getPassword());

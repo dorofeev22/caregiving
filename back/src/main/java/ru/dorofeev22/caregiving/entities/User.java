@@ -12,7 +12,7 @@ public class User extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_role")
-	private UserRole userRole;
+	private UserRole role;
 
 	@Enumerated(EnumType.STRING)
 	private Type type;
@@ -24,12 +24,12 @@ public class User extends BaseEntity {
 	public User() {
 	}
 
-	public User(Long id, String name, String login, String password, UserRole userRole, Type type) {
+	public User(Long id, String name, String login, String password, UserRole role, Type type) {
 		this.setId(id);
 		this.name = name;
 		this.login = login;
 		this.password = password;
-		this.userRole = userRole;
+		this.role = role;
 		this.type = type;
 	}
 
@@ -65,12 +65,12 @@ public class User extends BaseEntity {
 		this.type = type;
 	}
 
-	public UserRole getUserRole() {
-		return userRole;
+	public UserRole getRole() {
+		return role;
 	}
 
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 }
 

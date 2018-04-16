@@ -37,8 +37,10 @@ public class UserController {
             @RequestParam("size") int size,
             @RequestParam(value = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "login", required = false, defaultValue = "") String login,
+            @RequestParam(value = "role", required = false, defaultValue = "") String roleName,
             @RequestParam(value = "type", required = false) User.Type type) {
-        return userService.find(page, size, name, login, (type != null ? Arrays.asList(type) : Arrays.asList(User.Type.values())));
+        return userService.find(
+                page, size, name, login, (type != null ? Arrays.asList(type) : Arrays.asList(User.Type.values())), roleName);
     }
 
     @DeleteMapping("/{id}")

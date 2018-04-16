@@ -7,6 +7,7 @@ import {SelectItem} from 'primeng/api';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import {UserRole} from '../domain/userRole';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +18,7 @@ export class UsersComponent implements OnInit {
 
   users: User[];
   userTypes: SelectItem[];
+  userRoles: UserRole[];
   cols: any;
   totalRecords: number;
   loading: boolean;
@@ -25,6 +27,9 @@ export class UsersComponent implements OnInit {
 
   constructor(private commonService: CommonService, private router: Router) {
     this.userTypes = this.commonService.getUsersType();
+    this.commonService.get('/user-role').subscribe(data => {
+      this.userRoles = <UserRole[]> data;
+    });
     this.modelChanged
       .debounceTime(300) // wait 300ms after the last event before emitting last event
       .subscribe(user => this.save(user));

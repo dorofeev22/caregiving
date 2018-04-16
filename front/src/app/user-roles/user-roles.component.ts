@@ -9,7 +9,7 @@ import {UserRole} from '../domain/userRole';
 })
 export class UserRolesComponent implements OnInit {
 
-  userRoles: UserRole[];
+  @Input() userRoles: UserRole[];
   cols: any;
   @Input() userRole: UserRole;
   @Output() userRoleChange  = new EventEmitter<UserRole>();
@@ -18,9 +18,6 @@ export class UserRolesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commonService.get('/user-role').subscribe(data => {
-      this.userRoles = <UserRole[]> data;
-    });
     this.cols = [
       {field: 'id', header: 'Id'},
       {field: 'name', header: 'Role name'},
