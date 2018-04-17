@@ -4,6 +4,7 @@ import {User} from '../domain/user';
 import {CommonService} from '../common.service';
 import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
+import {UserRole} from '../domain/userRole';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +17,7 @@ export class UserComponent implements OnInit {
   id: number;
   userForm: FormGroup;
   userTypes: SelectItem[];
+  userRoles: UserRole[];
   nameMaxLength: number;
   loginMaxLength: number;
   url = '/user';
@@ -28,6 +30,9 @@ export class UserComponent implements OnInit {
     this.nameMaxLength = 100;
     this.loginMaxLength = 50;
     this.userTypes = this.commonService.getUsersType();
+    this.commonService.get('/user-role').subscribe(data => {
+      this.userRoles = <UserRole[]> data;
+    });
   }
 
   ngOnInit() {
@@ -40,6 +45,7 @@ export class UserComponent implements OnInit {
       ])),
       type: new FormControl('', Validators.required),
       password: new FormControl(''),
+      role: new FormControl('', Validators.required),
       id: []
     });
     if (!this.id) {

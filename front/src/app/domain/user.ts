@@ -6,7 +6,5 @@ export class User {
   login;
   type;
   password;
-  userRoleId;
-  userRoleName;
   role: UserRole;
 }

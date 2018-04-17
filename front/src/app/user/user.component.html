@@ -55,10 +55,17 @@
         </div>
       </div>
     </div>
-
-
-
-
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Role :
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText type="text" [value]="userForm.value.role != '' ? userForm.value.role.name : ''" placeholder="Required" readonly="readonly"/>
+          <app-user-roles [(userRole)]="userForm.value.role" [(userRoles)]="userRoles" (userRoleChange)="userForm.controls['role'].setErrors(null)"></app-user-roles>
+        </div>
+      </div>
+    </div>
     <div *ngIf="!user.id" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
       <div class="ui-grid-row">
         <div class="ui-grid-col-2">
@@ -76,8 +83,6 @@
       </div>
     </div>
   </p-panel>
-
-
   <button pButton type="submit" label="Save" [disabled]="!userForm.valid"></button>
 </form>
 <p>

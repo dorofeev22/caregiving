@@ -1,4 +1,4 @@
-<button type="text" pButton label="Change role" (click)="op.toggle($event)"></button>
+<button type="button" pButton label="Change role" (click)="op.toggle($event)"></button>
 <p-overlayPanel #op [showCloseIcon]="true" [dismissable]="false">
   <p-table [columns]="cols" [value]="userRoles" [style]="{'width':'500px'}">
     <ng-template pTemplate="header" let-columns>
