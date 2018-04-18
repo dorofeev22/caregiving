@@ -1,3 +1,4 @@
+DROP DATABASE caregiving;
 CREATE DATABASE caregiving
   WITH OWNER = postgres
        ENCODING = 'UTF8'
