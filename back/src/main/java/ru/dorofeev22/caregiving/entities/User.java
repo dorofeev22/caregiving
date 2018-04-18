@@ -1,6 +1,7 @@
 package ru.dorofeev22.caregiving.entities;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(schema = "caregiving", name = "users")
@@ -16,6 +17,8 @@ public class User extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	private Type type;
+
+	private ZonedDateTime lockDateTime;
 
 	public enum Type {
 		admin, user
@@ -71,6 +74,14 @@ public class User extends BaseEntity {
 
 	public void setRole(UserRole role) {
 		this.role = role;
+	}
+
+	public ZonedDateTime getLockDateTime() {
+		return lockDateTime;
+	}
+
+	public void setLockDateTime(ZonedDateTime lockDateTime) {
+		this.lockDateTime = lockDateTime;
 	}
 }
 

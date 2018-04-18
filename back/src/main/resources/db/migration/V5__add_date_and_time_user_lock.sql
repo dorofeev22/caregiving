@@ -1,0 +1,1 @@
+ALTER TABLE caregiving.users ADD COLUMN lock_date_time TIMESTAMP WITHOUT TIME ZONE;

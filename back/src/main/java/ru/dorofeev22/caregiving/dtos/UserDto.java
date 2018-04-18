@@ -1,10 +1,12 @@
 package ru.dorofeev22.caregiving.dtos;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.dorofeev22.caregiving.entities.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.ZonedDateTime;
 
 public class UserDto {
 
@@ -42,6 +44,8 @@ public class UserDto {
     @NotNull(groups = {New.class, Existing.class})
     // TODO validate roleId
     private UserRoleDto role;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private ZonedDateTime lockDateTime;
 
     public UserRoleDto getRole() {
         return role;
@@ -91,4 +95,11 @@ public class UserDto {
         this.type = type;
     }
 
+    public ZonedDateTime getLockDateTime() {
+        return lockDateTime;
+    }
+
+    public void setLockDateTime(ZonedDateTime lockDateTime) {
+        this.lockDateTime = lockDateTime;
+    }
 }
