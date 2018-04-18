@@ -46,6 +46,7 @@ export class UserComponent implements OnInit {
       type: new FormControl('', Validators.required),
       password: new FormControl(''),
       role: new FormControl('', Validators.required),
+      lockDateTime: new FormControl(''),
       id: []
     });
     if (!this.id) {
@@ -54,6 +55,7 @@ export class UserComponent implements OnInit {
       this.commonService.get(this.url + '/' + this.id.toString()).subscribe(
         data => {
           this.user = <User> data;
+          this.user.lockDateTime = this.commonService.parseDateFromString(data.lockDateTime);
           this.userForm.setValue(this.user);
         });
     }

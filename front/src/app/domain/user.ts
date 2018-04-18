@@ -7,4 +7,5 @@ export class User {
   type;
   password;
   role: UserRole;
+  lockDateTime: Date;
 }

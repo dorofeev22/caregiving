@@ -8,6 +8,7 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {PanelModule} from 'primeng/panel';
 import {DropdownModule} from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
 import {AppComponent} from './app.component';
 import {UsersComponent} from './users/users.component';
 import {CommonService} from './common.service';
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     DropdownModule,
     FormsModule,
     PanelModule,
+    CalendarModule,
     OverlayPanelModule
   ],
   providers: [CommonService],

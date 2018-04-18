@@ -2,6 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {SelectItem} from 'primeng/api';
+import * as moment from 'moment';
 
 @Injectable()
 export class CommonService {
@@ -43,6 +44,10 @@ export class CommonService {
       {label: 'admin', value: 'admin'},
       {label: 'user', value: 'user'}
     ];
+  }
+
+  public parseDateFromString(dateStr: any): Date {
+    return dateStr ? moment(dateStr).toDate() : null;
   }
 
 }
