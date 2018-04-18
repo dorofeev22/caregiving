@@ -1,13 +1,19 @@
 <button type="button" pButton label="Change role" (click)="op.toggle($event)"></button>
 <p-overlayPanel #op [showCloseIcon]="true" [dismissable]="false">
-  <p-table [columns]="cols" [value]="userRoles" [style]="{'width':'500px'}">
+  <p-table #dt [columns]="cols" [value]="userRoles" [style]="{'width':'800px'}">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
           {{col.header}}
           <p-sortIcon [field]="col.field"></p-sortIcon>
         </th>
-        <th>Chose</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns">
+          <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"  style="width: 100%">
+        </th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-role let-columns="columns">

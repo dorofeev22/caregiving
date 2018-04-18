@@ -12,7 +12,7 @@
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
         <p-dropdown *ngSwitchCase="'type'" [options]="userTypes" placeholder="Select a type" [showClear]="true" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
-        <input *ngSwitchDefault pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input *ngSwitchDefault pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width: 100%">
       </th>
       <th></th>
     </tr>
