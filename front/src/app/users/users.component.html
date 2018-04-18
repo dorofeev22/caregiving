@@ -51,7 +51,7 @@
       </td>
       <td>
         <span>{{user.role.name}}</span>
-            <app-user-roles [(userRole)]="user.role" [(userRoles)]="userRoles" (userRoleChange)="changed(user)"></app-user-roles>
+        <app-user-roles [(userRole)]="user.role" [(userRoles)]="userRoles" (userRoleChange)="changed(user)"></app-user-roles>
       </td>
       <td>
         <a pButton [routerLink]="['/user', user.id]" label="Edit"></a>
