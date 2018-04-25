@@ -64,7 +64,7 @@
           <input pInputText type="text" [value]="userForm.controls['role'].value != '' ? userForm.controls['role'].value.name : ''" placeholder="Required" readonly="readonly"/>
         </div>
         <div class="ui-grid-col-3">
-          <app-user-roles [(userRole)]="userForm.controls['role'].value" [(userRoles)]="userRoles" (userRoleChange)="userForm.controls['role'].setErrors(null)"></app-user-roles>
+          <app-user-roles [(userRole)]="userForm.controls['role'].value" (userRoleChange)="userForm.controls['role'].setErrors(null)"></app-user-roles>
         </div>
       </div>
     </div>

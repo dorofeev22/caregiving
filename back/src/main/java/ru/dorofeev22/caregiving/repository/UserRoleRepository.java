@@ -9,4 +9,6 @@ public interface UserRoleRepository extends PagingAndSortingRepository<UserRole,
 
     Page<UserRole> findByNameContainingAndDescriptionContaining(String name, String description, Pageable pageable);
 
+    Page<UserRole> findByNameContaining(String name, Pageable pageable);
+
 }

@@ -16,9 +16,11 @@ import {UserRole} from '../domain/userRole';
 })
 export class UsersComponent implements OnInit {
 
+  url: string;
   users: User[];
   userTypes: SelectItem[];
   userRoles: UserRole[];
+  userRolesCount: number;
   cols: any;
   totalRecords: number;
   loading: boolean;
@@ -27,8 +29,8 @@ export class UsersComponent implements OnInit {
 
   constructor(private commonService: CommonService, private router: Router) {
     this.userTypes = this.commonService.getUsersType();
-    this.commonService.get('/user-role').subscribe(data => {
-      this.userRoles = <UserRole[]> data;
+    this.commonService.getUserRoles(0, 0).subscribe(data => {
+      this.userRolesCount = data.totalElements;
     });
     this.modelChanged
       .debounceTime(300) // wait 300ms after the last event before emitting last event
@@ -37,8 +39,9 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.rows = 5;
+    this.url = '/user';
     this.loading = true;
-    this.findUsers(0, this.rows, new Map<string, string>());
+    this.findUsers({'page': 0, 'size': this.rows});
     this.cols = [
       { field: 'name', header: 'User name' },
       { field: 'login', header: 'Login' },
@@ -57,11 +60,13 @@ export class UsersComponent implements OnInit {
         }
       }
     }
-    this.findUsers(event.first / event.rows, event.rows, findParams);
+    findParams['page'] = event.first / event.rows;
+    findParams['size'] = event.rows;
+    this.findUsers(findParams);
   }
 
-  findUsers(page: number, size: number, findParams: {}) {
-    this.commonService.findUsers(page, size, findParams).subscribe(
+  findUsers(findParams: {}) {
+    this.commonService.find(this.url, findParams).subscribe(
       data => {
         this.users = data.content;
         this.totalRecords = data.totalElements;
@@ -70,7 +75,7 @@ export class UsersComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.commonService.delete('/user/' + id.toString()).subscribe(res => {
+    this.commonService.delete(this.url + '/' + id.toString()).subscribe(res => {
       this.ngOnInit();
       }, msg => {
         console.error(`Error: ${msg.status} ${msg.statusText}`);
@@ -83,7 +88,7 @@ export class UsersComponent implements OnInit {
   }
 
   save(user: User) {
-    this.commonService.save('/user', user).subscribe(res => {
+    this.commonService.save(this.url, user).subscribe(res => {
       // TODO accept response
     });
   }

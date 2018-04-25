@@ -1,6 +1,8 @@
 <button type="button" pButton label="Change role" (click)="op.toggle($event)"></button>
 <p-overlayPanel #op [showCloseIcon]="true" [dismissable]="false">
-  <p-table #dt [columns]="cols" [value]="userRoles" [style]="{'width':'800px'}">
+  <div><span>Table rows count: {{tableRowsCount}}</span> <span>Total records: {{totalRecords}}</span></div>
+  <p-table #dt [columns]="cols" [value]="userRoles" scrollable="true" scrollHeight="200px" [rows]="rowsCount" [virtualScroll]="true"
+             [lazy]="true" [totalRecords]="tableRowsCount" (onLazyLoad)="loadRoles($event)">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns" [pSortableColumn]="col.field">

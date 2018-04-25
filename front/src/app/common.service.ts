@@ -9,22 +9,16 @@ export class CommonService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public find(url: string, page: number, size: number, params: HttpParams): Observable<any> {
-    return this.httpClient.get(url, {
-      params: params.set('page', page.toString()).set('size', size.toString())
-    });
-  }
-
-  public findUsers(page: number, size: number, findParams: {}): Observable<any>  {
-    let httpFindParams = new HttpParams();
-    for (const param of Object.keys(findParams)) {
-      httpFindParams = httpFindParams.set(param.toString(), findParams[param].toString());
-    }
-    return this.find('/user', page, size, httpFindParams);
+  public find(url: string, findParams: {}): Observable<any>  {
+    return this.httpClient.get(url, {params: this.getHttpParams(findParams)});
   }
 
   public get(url: string): Observable<any> {
     return this.httpClient.get(url);
+  }
+
+  public getUserRoles(offset: number, limit: number): Observable<any> {
+    return this.httpClient.get('/user-role', {params: this.getHttpParams({'offset': offset, 'limit': limit})});
   }
 
   public save(url: string, obj: any): Observable<any> {
@@ -48,6 +42,14 @@ export class CommonService {
 
   public parseDateFromString(dateStr: any): Date {
     return dateStr ? moment(dateStr).toDate() : null;
+  }
+
+  private getHttpParams(params: {}): HttpParams {
+    let httpParams = new HttpParams();
+    for (const param of Object.keys(params)) {
+      httpParams = httpParams.set(param.toString(), params[param].toString());
+    }
+    return httpParams;
   }
 
 }
