@@ -12,6 +12,7 @@ import ru.dorofeev22.caregiving.services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -55,4 +56,8 @@ public class UserController {
         return u;
     }
 
+    @GetMapping("/userTypes")
+    public List<User.Type> userTypes() {
+        return Arrays.asList(User.Type.values());
+    }
 }

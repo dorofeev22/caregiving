@@ -19,6 +19,8 @@ import {CommonService} from './common.service';
 import {UserComponent} from './user/user.component';
 import {UserRolesComponent} from './user-roles/user-roles.component';
 
+import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
+
 const appRoutes: Routes = [
   {path: 'users', component: UsersComponent},
   {path: 'user/:id', component: UserComponent}
@@ -34,17 +36,10 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
-    BrowserModule, ReactiveFormsModule,
-    BrowserAnimationsModule,
+    BrowserModule, ReactiveFormsModule, BrowserAnimationsModule,
     HttpClientModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    DropdownModule,
-    FormsModule,
-    PanelModule,
-    CalendarModule,
-    OverlayPanelModule
+    TableModule, ButtonModule, InputTextModule, DropdownModule, FormsModule, PanelModule, CalendarModule, OverlayPanelModule,
+    DynamicFormModule
   ],
   providers: [CommonService],
   bootstrap: [AppComponent]
