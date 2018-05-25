@@ -14,6 +14,11 @@ import { FieldConfig } from '../../models/field-config.interface';
         type="text"
         [attr.placeholder]="config.placeholder"
         [formControlName]="config.name" />
+      <div *ngIf="!group.controls[config.name].valid && group.controls[config.name].dirty">
+        <span *ngIf="group.controls[config.name].errors['required']">Is required</span>
+        <span *ngIf="group.controls[config.name].errors['pattern']">Unacceptable characters</span>
+        <span *ngIf="group.controls[config.name].errors['minlength']">Min length</span>
+      </div>
     </div>
   `
 })

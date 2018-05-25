@@ -1,4 +1,5 @@
-import { ValidatorFn } from '@angular/forms';
+import {ValidatorFn} from '@angular/forms';
+import {ValidationRule} from './validation-rule.interface';
 
 export interface FieldConfig {
   disabled?: boolean;
@@ -8,6 +9,6 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
-  validationRules?: any[];
+  validationRules?: ValidationRule[];
   value?: any;
 }
