@@ -29,7 +29,7 @@ public class MapperService {
      */
     public <E, D> D toDto(E entity, Class<D> dtoClass) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(entity, dtoClass);
+        return entity != null ? modelMapper.map(entity, dtoClass) : null;
     }
 
 }
