@@ -12,35 +12,13 @@ import {CommonService} from './common.service';
 export class AppComponent implements AfterViewInit, OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   title = 'My Application';
-  userTypes: string[];
-  config: FieldConfig[] = [
-    {
-      type: 'input',
-      label: 'Full name',
-      name: 'name',
-      placeholder: 'Enter your name',
-      validation: [Validators.required, Validators.minLength(4)]
-    },
-    {
-      type: 'select',
-      label: 'Favourite Food',
-      name: 'food',
-      options: this.userTypes,
-      placeholder: 'Select an option',
-      validation: [Validators.required]
-    },
-    {
-      label: 'Submit',
-      name: 'submit',
-      type: 'button'
-    }
-  ];
+  config: FieldConfig[] = [];
 
   constructor(private commonService: CommonService) {
   }
 
   ngOnInit () {
-    this.getUserTypes();
+    this.getFormInfo();
   }
 
   ngAfterViewInit() {
@@ -59,11 +37,11 @@ export class AppComponent implements AfterViewInit, OnInit {
     console.log(value);
   }
 
-  getUserTypes() {
-    this.commonService.get('/user/userTypes').subscribe(data => {
-      this.userTypes = <string[]>data;
+  getFormInfo() {
+    this.commonService.get('/formInfo/1').subscribe(data => {
+      const userTypes = <string[]>data;
+      this.config = data.info.fileds;
     });
-    // return ['Pizza', 'Hot Dogs', 'Knakworstje', 'Coffee'];
   }
 
 }
