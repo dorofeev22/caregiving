@@ -10,5 +10,6 @@ export interface FieldConfig {
   type: string;
   validation?: ValidatorFn[];
   validationRules?: ValidationRule[];
+  validationMessages?: any[];
   value?: any;
 }

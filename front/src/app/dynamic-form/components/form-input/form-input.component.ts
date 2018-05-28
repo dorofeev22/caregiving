@@ -1,8 +1,8 @@
-import { Component, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+import {Field} from '../../models/field.interface';
+import {FieldConfig} from '../../models/field-config.interface';
 
 @Component({
   selector: 'app-form-input',
@@ -10,14 +10,11 @@ import { FieldConfig } from '../../models/field-config.interface';
   template: `
     <div class="dynamic-field form-input" [formGroup]="group">
       <label>{{ config.label }}</label>
-      <input
-        type="text"
-        [attr.placeholder]="config.placeholder"
-        [formControlName]="config.name" />
+      <input type="text" [attr.placeholder]="config.placeholder" [formControlName]="config.name" />
       <div *ngIf="!group.controls[config.name].valid && group.controls[config.name].dirty">
-        <span *ngIf="group.controls[config.name].errors['required']">Is required</span>
-        <span *ngIf="group.controls[config.name].errors['pattern']">Unacceptable characters</span>
-        <span *ngIf="group.controls[config.name].errors['minlength']">Min length</span>
+        <div *ngFor="let msg of config.validationMessages">
+          <span *ngIf="group.controls[config.name].errors[msg.validatorName]">{{msg.message}}</span>
+        </div>
       </div>
     </div>
   `
