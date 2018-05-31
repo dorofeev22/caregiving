@@ -20,10 +20,12 @@ import {UserComponent} from './user/user.component';
 import {UserRolesComponent} from './user-roles/user-roles.component';
 
 import {DynamicFormModule} from './dynamic-form/dynamic-form.module';
+import {DocumentComponent} from './document/document.component';
 
 const appRoutes: Routes = [
   {path: 'users', component: UsersComponent},
-  {path: 'user/:id', component: UserComponent}
+  {path: 'user/:id', component: UserComponent},
+  {path: 'document', component: DocumentComponent}
 ]
 
 
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     AppComponent,
     UsersComponent,
     UserComponent,
-    UserRolesComponent
+    UserRolesComponent,
+    DocumentComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing: true}),

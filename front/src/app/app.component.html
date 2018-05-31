@@ -2,8 +2,7 @@
 <nav>
   <a pButton [routerLink]="['/users']" label="Users"></a>
 </nav>
+<nav>
+  <a pButton [routerLink]="['/document']" label="Document"></a>
+</nav>
 <router-outlet></router-outlet>
-<div>
-  <app-dynamic-form [config]="config" #form="dynamicForm" (submit)="submit($event)"></app-dynamic-form>
-  {{ form.valid }}
-</div>
