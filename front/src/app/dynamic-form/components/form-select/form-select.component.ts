@@ -16,7 +16,17 @@ import {FieldConfig} from '../../models/field-config.interface';
           {{ option.value }}
         </option>
       </select>
-      <p-listbox [options]="config.options" [(ngModel)]="config.value"></p-listbox>
+      <p-listbox [formControlName]="config.name" [options]="config.options" [(ngModel)]="config.selectedOptions">
+        <ng-template let-itm let-i="index" pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <span>{{i}}</span>
+            <span>{{itm.label}}</span>
+            <span>{{itm.value}}</span>
+          </div>
+        </ng-template>
+      </p-listbox>
+      <div>{{config.selectedOptions ? config.selectedOptions.label : ''}}</div>
+      <div>{{config.selectedOptions}}</div>
     </div>
   `,
 })

@@ -7,6 +7,7 @@ export interface FieldConfig {
   label?: string;
   name: string;
   options?: SelectItem[];
+  selectedOptions: SelectItem;
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];

@@ -13,26 +13,14 @@ import {ValidationRule} from '../dynamic-form/models/validation-rule.interface';
     <div>
       <app-dynamic-form [config]="config" #form="dynamicForm" (submit)="submit($event)"></app-dynamic-form>
     </div>
-    <p-listbox [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"></p-listbox>
-    <div>{{selectedCity2 ? selectedCity2.name : ''}}</div>
   `,
   styleUrls: ['./document.component.css']
 })
 export class DocumentComponent implements AfterViewInit, OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   config: FieldConfig[] = [];
-  cities2: any[];
-  selectedCity2: any;
 
-  constructor(private commonService: CommonService) {
-    this.cities2 = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-    ];
-  }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit () {
     this.getFormInfo();
