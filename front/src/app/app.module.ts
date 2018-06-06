@@ -12,6 +12,7 @@ import {PanelModule} from 'primeng/panel';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {ListboxModule} from 'primeng/listbox';
 
 import {AppComponent} from './app.component';
 import {UsersComponent} from './users/users.component';
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
     BrowserModule, ReactiveFormsModule, BrowserAnimationsModule,
     HttpClientModule,
-    TableModule, ButtonModule, InputTextModule, DropdownModule, FormsModule, PanelModule, CalendarModule, OverlayPanelModule,
+    TableModule, ButtonModule, InputTextModule, DropdownModule, FormsModule, PanelModule, CalendarModule,
+    OverlayPanelModule, ListboxModule,
     DynamicFormModule
   ],
   providers: [CommonService],

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
-import { Field } from '../../models/field.interface';
-import { FieldConfig } from '../../models/field-config.interface';
+import {Field} from '../../models/field.interface';
+import {FieldConfig} from '../../models/field-config.interface';
 
 @Component({
   selector: 'app-form-select',
@@ -13,9 +13,10 @@ import { FieldConfig } from '../../models/field-config.interface';
       <select [formControlName]="config.name">
         <option value="">{{ config.placeholder }}</option>
         <option *ngFor="let option of config.options">
-          {{ option }}
+          {{ option.value }}
         </option>
       </select>
+      <p-listbox [options]="config.options" [(ngModel)]="config.value"></p-listbox>
     </div>
   `,
 })

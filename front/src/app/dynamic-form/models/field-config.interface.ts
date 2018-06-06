@@ -1,11 +1,12 @@
 import {ValidatorFn} from '@angular/forms';
 import {ValidationRule} from './validation-rule.interface';
+import {SelectItem} from 'primeng/api';
 
 export interface FieldConfig {
   disabled?: boolean;
   label?: string;
   name: string;
-  options?: string[];
+  options?: SelectItem[];
   placeholder?: string;
   type: string;
   validation?: ValidatorFn[];
