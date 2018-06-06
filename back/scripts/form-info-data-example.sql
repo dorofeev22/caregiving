@@ -1,4 +1,75 @@
 INSERT INTO caregiving.form_info(info)
 	VALUES (
-    '{"name": "Vasya", "fileds": [{"name": "name", "type": "input", "label": "Full name", "placeholder": "Enter your name", "validationRules": [{"type": "mandatory", "value": "true"}, {"type": "regexp", "value": "[A-Za-z]*", "message": "Only latin characters"}, {"type": "minLength", "value": 4}]}, {"name": "food", "type": "select", "label": "Favourite Food", "options": ["admin", "user"], "placeholder": "Select an option", "validationRules": [{"type": "mandatory", "value": "true"}]}, {"name": "submit", "type": "button", "label": "Submit"}]}'
+    '{
+    "fileds": [
+        {
+            "name": "name",
+            "type": "input",
+            "valueType": "string",
+            "label": "Full name",
+            "validationRules": [
+                {
+                    "type": "mandatory",
+                    "value": "true"
+                },
+                {
+                    "message": "Only latin characters",
+                    "type": "regexp",
+                    "value": "[A-Za-z]*"
+                },
+                {
+                    "type": "minLength",
+                    "value": 4
+                }
+            ],
+            "placeholder": "Enter your name"
+        },
+        {
+            "name": "food",
+            "type": "select",
+            "label": "Favourite Food",
+            "validationRules": [
+                {
+                    "type": "mandatory",
+                    "value": "true"
+                }
+            ],
+            "placeholder": "Select an option",
+            "options": [
+                {
+                    "value": "admin",
+                    "label": "Admin"
+                },
+                {
+                    "value": "user",
+                    "label": "User"
+                }
+            ]
+        },
+        {
+            "valueType": "boolean",
+            "type": "input",
+            "name": "che",
+            "label": "chekL"
+        },
+        {
+            "validationRules": [
+                {
+                    "type": "minVal",
+                    "value": 0
+                }
+            ],
+            "valueType": "number",
+            "type": "input",
+            "name": "number",
+            "label": "Number"
+        },
+        {
+            "type": "button",
+            "name": "submit",
+            "label": "Submit"
+        }
+    ],
+    "name": "Vasya"
+}'
     );
