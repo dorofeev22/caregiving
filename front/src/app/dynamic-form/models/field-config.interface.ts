@@ -12,4 +12,5 @@ export interface FieldConfig {
   validationRules?: ValidationRule[];
   validationMessages?: any[];
   value?: any;
+  valueType?: string;
 }
