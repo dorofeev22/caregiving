@@ -32,10 +32,10 @@ public class UserDto {
     @NotNull(groups = Existing.class)
     private Long id;
     @NotBlank(groups = {New.class, Existing.class})
-    @Size(max = 100)
+    @Size(max = 100, groups = {New.class, Existing.class})
     private String name;
     @NotBlank(groups = {New.class, Existing.class})
-    @Size(max = 50)
+    @Size(max = 50, groups = {New.class, Existing.class})
     private String login;
     @NotBlank(groups = New.class)
     private String password;
